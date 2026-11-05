@@ -43,9 +43,13 @@ solutions = [
 ]
 EOF
 
-# Undo a previous overlay so the sync can check out the revision cleanly
+# Undo a previous overlay so the sync can check out the revision cleanly.
+# Refresh the index first: a checkout restored from CI's cache has new inodes
+# and ctimes, and git would otherwise rewrite (and so touch, triggering a full
+# rebuild) every file it considers stale.
 if [ -d "$SRC/.git" ]; then
-  git -C "$SRC" checkout -- front_end
+  git -C "$SRC" update-index -q --refresh || true
+  (cd "$ROOT/overlay" && find front_end -type f) | xargs git -C "$SRC" checkout --
 fi
 (cd "$BUILD" && gclient sync --revision "devtools-frontend@$DEVTOOLS_REVISION" --no-history --shallow)
 
