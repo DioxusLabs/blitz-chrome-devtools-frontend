@@ -23,6 +23,11 @@ if [ ! -d "$BUILD/depot_tools" ]; then
 fi
 export PATH="$BUILD/depot_tools:$PATH"
 
+# Skip downloading the Emscripten toolchain (about 770 MB unpacked), which is
+# only needed for DevTools' C++ debugging extension. (Chrome for Testing, which
+# is only used by DevTools' tests, can't be skipped: custom_deps doesn't apply
+# to GCS dependencies, and its DEPS condition can't be turned off without also
+# dropping Node.)
 cat > "$BUILD/.gclient" <<'EOF'
 solutions = [
   {
@@ -31,6 +36,9 @@ solutions = [
     "deps_file": "DEPS",
     "managed": False,
     "custom_deps": {},
+    "custom_hooks": [
+      {"name": "emscripten"},
+    ],
   },
 ]
 EOF

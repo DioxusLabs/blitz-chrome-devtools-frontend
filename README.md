@@ -17,7 +17,9 @@ locally.
 This checks out devtools-frontend (with [depot_tools](https://commondatastorage.googleapis.com/chrome-infra-docs/flat/depot_tools/docs/html/depot_tools_tutorial.html))
 at the revision pinned in `scripts/build.sh`, applies `overlay/` (an entrypoint and shell that only
 register the panels Blitz supports), builds it in release mode, and packages the files reachable from
-`devtools_app.html` into `dist/` and `dist.tar.br`. The first run downloads about 3 GB.
+`devtools_app.html` into `dist/` and `dist.tar.br`. The first run sets up about 2.7 GB of tooling
+and source (mostly depot_tools, Node, Python and Chrome for Testing, which DevTools' DEPS always
+downloads).
 
 ## Publishing
 
