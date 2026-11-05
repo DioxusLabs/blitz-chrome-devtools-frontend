@@ -1,0 +1,44 @@
+name: Build
+
+# Builds the frontend and checks the crate. Run manually with "publish crate"
+# ticked to also publish the crate to crates.io (needs a CARGO_REGISTRY_TOKEN
+# secret).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      publish_crate:
+        description: Publish the crate to crates.io
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the frontend
+        run: ./scripts/build.sh
+
+      - name: Check the crate
+        run: |
+          cargo fmt --check
+          cargo clippy --all-targets -- -D warnings
+          cargo test
+          cargo package
+
+      - name: Publish to crates.io
+        if: github.event_name == 'workflow_dispatch' && inputs.publish_crate && github.ref == 'refs/heads/main'
+        run: cargo publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}

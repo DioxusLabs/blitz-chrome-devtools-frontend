@@ -1,0 +1,27 @@
+# Copyright 2021 The Chromium Authors
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+import("../../../scripts/build/ninja/devtools_entrypoint.gni")
+import("../visibility.gni")
+
+devtools_entrypoint("entrypoint") {
+  entrypoint = "devtools_app.ts"
+
+  ts_deps = [
+    "../../core/root:bundle",
+    "../../entrypoints/inspector_main:meta",
+    "../../panels/elements:meta",
+    "../../panels/mobile_throttling:meta",
+    "../../panels/network:meta",
+    "../main:bundle",
+    "../shell",
+  ]
+
+  visibility = [
+    "../../:*",
+    "../../legacy_test_runner:*",
+    "../inspector:*",
+  ]
+
+  visibility += devtools_entrypoints_visibility
+}
