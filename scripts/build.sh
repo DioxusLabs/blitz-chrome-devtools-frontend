@@ -15,7 +15,7 @@ DEVTOOLS_REVISION="${DEVTOOLS_REVISION:-a7812cf737f651c890965e0c274dd52db2520d33
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD="$ROOT/build"
 SRC="$BUILD/devtools-frontend"
-OUT="$SRC/out/Blitz"
+OUT="$SRC/out/BlitzNinja"
 
 mkdir -p "$BUILD"
 if [ ! -d "$BUILD/depot_tools" ]; then
