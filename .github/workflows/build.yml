@@ -25,20 +25,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Build the frontend
         run: ./scripts/build.sh
 
+      # --allow-dirty: the crate includes dist.tar.br, which is built (and
+      # gitignored) rather than committed
       - name: Check the crate
         run: |
           cargo fmt --check
           cargo clippy --all-targets -- -D warnings
           cargo test
-          cargo package
+          cargo package --allow-dirty
 
       - name: Publish to crates.io
         if: github.event_name == 'workflow_dispatch' && inputs.publish_crate && github.ref == 'refs/heads/main'
-        run: cargo publish
+        run: cargo publish --allow-dirty
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}

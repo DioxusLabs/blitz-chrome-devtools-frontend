@@ -23,7 +23,8 @@ register the panels Blitz supports), builds it in release mode, and packages the
 
 CI builds and checks every push and pull request. To publish to crates.io, bump the version in
 `Cargo.toml` and run the workflow manually with "publish crate" ticked (it needs a
-`CARGO_REGISTRY_TOKEN` secret), or run `./scripts/build.sh && cargo publish` locally.
+`CARGO_REGISTRY_TOKEN` secret), or run `./scripts/build.sh && cargo publish --allow-dirty` locally
+(`--allow-dirty` because the crate includes the built, gitignored `dist.tar.br`).
 
 ## License
 
