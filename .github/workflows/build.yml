@@ -27,6 +27,17 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      # depot_tools, the devtools-frontend checkout (with its toolchains and
+      # node_modules) and the build output, so that the build only syncs and
+      # rebuilds what changed. The key covers scripts/build.sh, which pins the
+      # revision and configures the checkout. On a miss, the most recent older
+      # entry is restored and brought up to date by the build.
+      - uses: actions/cache@v6
+        with:
+          path: build
+          key: devtools-frontend-${{ runner.os }}-${{ hashFiles('scripts/build.sh') }}
+          restore-keys: devtools-frontend-${{ runner.os }}-
+
       - name: Build the frontend
         run: ./scripts/build.sh
 
