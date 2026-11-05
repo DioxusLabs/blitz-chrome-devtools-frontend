@@ -51,7 +51,9 @@ fi
 
 cp -R "$ROOT/overlay/front_end/." "$SRC/front_end/"
 
-(cd "$SRC" && gn gen "$OUT" --args='is_debug=false')
+# Ninja rather than Siso (the default), which rebuilds everything after the
+# checkout is restored from CI's cache
+(cd "$SRC" && gn gen "$OUT" --args='is_debug=false use_siso=false')
 # Build the frontend and its file list, but not the default target: its
 # assert_grd check fails because the panels we don't import aren't built
 autoninja -C "$OUT" front_end :favicon :input_grd_files
