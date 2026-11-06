@@ -1,10 +1,10 @@
 [package]
-name = "blitz-devtools-frontend"
+name = "blitz-chrome-devtools-frontend"
 version = "0.1.0"
 description = "A minimal build of the Chrome DevTools frontend, for inspecting Blitz documents"
 license = "BSD-3-Clause AND MIT AND Apache-2.0"
-repository = "https://github.com/DioxusLabs/blitz-devtools-frontend"
-homepage = "https://github.com/DioxusLabs/blitz-devtools-frontend"
+repository = "https://github.com/DioxusLabs/blitz-chrome-devtools-frontend"
+homepage = "https://github.com/DioxusLabs/blitz-chrome-devtools-frontend"
 keywords = ["devtools", "blitz", "cdp"]
 categories = ["development-tools::debugging"]
 edition = "2024"

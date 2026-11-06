@@ -1,4 +1,4 @@
-# blitz-devtools-frontend
+# blitz-chrome-devtools-frontend
 
 A minimal build of the [Chrome DevTools frontend](https://github.com/ChromeDevTools/devtools-frontend)
 for inspecting [Blitz](https://github.com/DioxusLabs/blitz) documents through Blitz's Chrome DevTools
